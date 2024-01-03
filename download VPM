@@ -1,0 +1,26 @@
+import os
+import requests
+
+def download_file(url, filename):
+   response = requests.get(url, stream=True)
+
+   if response.status_code == 200:
+       with open(filename, 'wb') as file:
+           for chunk in response.iter_content(1024):
+               file.write(chunk)
+
+       return True
+   else:
+       return False
+
+def main():
+   url = input("Enter the file URL: ")
+   filename = input("Enter the filename: ")
+
+   if download_file(url, filename):
+       print(f"Successfully downloaded file to {filename}")
+   else:
+       print("Failed to download file")
+
+if __name__ == "__main__":
+   main()
